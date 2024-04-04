@@ -2,11 +2,9 @@ module github.com/crossworth/pkgs/postgres
 
 go 1.22
 
-replace github.com/crossworth/pkgs/xerror => ../xerror
-
 require (
-	github.com/crossworth/pkgs/xerror v0.0.0-00010101000000-000000000000
-	github.com/jackc/pgx/v5 v5.5.3
+	github.com/crossworth/pkgs/xerror v0.0.0-20240304132037-c7fd19513c41
+	github.com/jackc/pgx/v5 v5.5.5
 	github.com/stretchr/testify v1.8.4
 )
 
