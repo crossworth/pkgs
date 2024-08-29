@@ -24,6 +24,10 @@ type Txable interface {
 	Begin(ctx context.Context) (pgx.Tx, error)
 }
 
+type Acquirable interface {
+	Acquire(ctx context.Context) (*pgx.Conn, error)
+}
+
 type Connection interface {
 	Queryable
 	Executable
