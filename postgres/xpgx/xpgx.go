@@ -10,6 +10,7 @@ import (
 	"github.com/crossworth/pkgs/xerror"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 type Queryable interface {
@@ -25,7 +26,7 @@ type Txable interface {
 }
 
 type Acquirable interface {
-	Acquire(ctx context.Context) (*pgx.Conn, error)
+	Acquire(ctx context.Context) (*pgxpool.Conn, error)
 }
 
 type Connection interface {
