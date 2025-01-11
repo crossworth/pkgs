@@ -29,10 +29,15 @@ type Acquirable interface {
 	Acquire(ctx context.Context) (*pgxpool.Conn, error)
 }
 
+type Copyable interface {
+	CopyFrom(ctx context.Context, tableName pgx.Identifier, columnNames []string, rowSrc pgx.CopyFromSource) (int64, error)
+}
+
 type Connection interface {
 	Queryable
 	Executable
 	Txable
+	Copyable
 }
 
 type connectionKey struct{}
