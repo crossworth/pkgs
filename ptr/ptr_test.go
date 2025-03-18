@@ -19,6 +19,12 @@ func TestOf(t *testing.T) {
 	require.Equal(t, &tm, Of(tm))
 }
 
+func TestNilOnZero(t *testing.T) {
+	require.Nil(t, NilOnZero(""))
+	require.NotNil(t, NilOnZero("test"))
+	require.Equal(t, "test", *NilOnZero("test"))
+}
+
 func TestValueOrDefault(t *testing.T) {
 	t.Parallel()
 	require.Equal(t, 10, ValueOrDefault(nil, 10))

@@ -14,12 +14,20 @@ func ValueOrDefault[T any](v *T, d T) T {
 	return *v
 }
 
+// NilOnZero returns nil when the value is zero.
+func NilOnZero[T comparable](v T) *T {
+	var zero T
+	if v == zero {
+		return nil
+	}
+	return &v
+}
+
 // ValuePtrOrNil returns the value pointer or nil if returnNil is true.
 func ValuePtrOrNil[T any](v T, returnNil bool) *T {
 	if returnNil {
 		return nil
 	}
-
 	return &v
 }
 
