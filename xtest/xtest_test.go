@@ -1,6 +1,7 @@
 package xtest
 
 import (
+	"os"
 	"testing"
 	"time"
 
@@ -39,6 +40,16 @@ func TestWait(t *testing.T) {
 		require.Equal(t, []any{"1ms"}, ctf.args)
 		require.True(t, ctf.failNow)
 	})
+}
+
+func TestContext(t *testing.T) {
+	ctx := Context(t)
+	go func() {
+		time.Sleep(1 * time.Millisecond)
+		p, _ := os.FindProcess(os.Getpid())
+		_ = p.Signal(os.Interrupt)
+	}()
+	<-ctx.Done()
 }
 
 type captureTestFailure struct {

@@ -2,6 +2,8 @@ package xtest
 
 import (
 	"context"
+	"os"
+	"os/signal"
 	"time"
 
 	"github.com/stretchr/testify/require"
@@ -46,7 +48,7 @@ func Wait(t TestingT, timeout time.Duration, check func(t TestingT) bool) {
 	}
 }
 
-// Must returns the value asserting that there are no errors.
+// Must return the value asserting that there are no errors.
 func Must[T any](t TestingT) func(v T, err error) T {
 	if h, ok := t.(interface {
 		Helper()
@@ -57,4 +59,16 @@ func Must[T any](t TestingT) func(v T, err error) T {
 		require.NoError(t, err)
 		return v
 	}
+}
+
+// Context returns a context to be used on tests.
+func Context(t TestingT) context.Context {
+	if c, ok := t.(interface {
+		Context() context.Context
+	}); ok {
+		return c.Context()
+	}
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	t.Cleanup(stop)
+	return ctx
 }
