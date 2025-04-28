@@ -21,5 +21,4 @@ func RunInSubprocess(t *testing.T) {
 	if err := cmd.Run(); err != nil {
 		t.Fatalf("failed to run %s in subprocess: %v", t.Name(), err)
 	}
-	t.Skipf("Ran %s in subprocess, skipping parent process body", t.Name())
 }
